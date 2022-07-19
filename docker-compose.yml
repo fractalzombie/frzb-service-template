@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  php-fpm:
+    build: .docker/php/fpm
+    environment:
+      # DOCKER
+      COMPOSE_FILE: ${COMPOSE_FILE}
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+      # HTTP
+      HTTP_PORT: ${HTTP_PORT}
+      HTTP_HOST: ${HTTP_HOST}
+      # XDEBUG
+      XDEBUG_MODE: ${XDEBUG_MODE}
+      XDEBUG_WITH_REQUEST: ${XDEBUG_WITH_REQUEST}
+      XDEBUG_REMOTE_HANDLER: ${XDEBUG_REMOTE_HANDLER}
+      XDEBUG_IDEKEY: ${XDEBUG_IDEKEY}
+      XDEBUG_PORT: ${XDEBUG_PORT}
+      XDEBUG_HOST: ${XDEBUG_HOST}
+      # SYMFONY
+      APP_NAME: ${APP_NAME}
+      APP_ENV: ${APP_ENV}
+      APP_SECRET: ${APP_SECRET}
+      # MESSENGER
+      MESSENGER_TRANSPORT_DSN: ${MESSENGER_TRANSPORT_DSN}
+    volumes:
+      - ./:/var/www/html:cached
+
+  proxy:
+    build: .docker/nginx
+    environment:
+      # HTTP
+      HTTP_PORT: ${HTTP_PORT}
+      HTTP_HOST: ${HTTP_HOST}
+      COMPOSE_PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+    depends_on:
+      - php-fpm
+    volumes:
+      - ./:/var/www/html:ro
+    ports:
+      - "${HTTP_PORT}:80"

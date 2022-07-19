@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+  
+  Service\:
+    resource: '../src/**'
+    exclude:
+    - '../src/**/{Attribute,Util,Helper,Request,Response,Contract,ValueObject,Enum,DTO,Model,Message,Event,Data,Exception,UseCase,Tests}/**'
+    - '../src/**/{*Kernel.php}'
