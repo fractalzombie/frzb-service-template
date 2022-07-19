@@ -29,6 +29,7 @@ composer.json
 src/Kernel.php
 public/index.php
 bin/console
+config/services.conf
 ```
 * Make composer install
 * Start docker containers using `docker-compose -d ${COMPOSE_PROJECT_NAME} up -d --build` or `make start`

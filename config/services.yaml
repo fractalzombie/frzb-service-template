@@ -3,7 +3,7 @@ services:
     autowire: true
     autoconfigure: true
   
-  Service\:
+  FRZB\ServiceTemplate\:
     resource: '../src/**'
     exclude:
     - '../src/**/{Attribute,Util,Helper,Request,Response,Contract,ValueObject,Enum,DTO,Model,Message,Event,Data,Exception,UseCase,Tests}/**'
